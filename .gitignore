@@ -1,0 +1,11 @@
+# Logs / temp
+*.log
+*.tmp
+*.swp
+
+# Systemd temp build artifacts (if any)
+*.service~
+
+# Optional: OS cruft
+.DS_Store
+Thumbs.db

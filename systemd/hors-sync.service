@@ -1,0 +1,15 @@
+[Unit]
+Description=Morinus Hors auto-tag and Git sync (user)
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/MorinusChartsRepo/scripts/auto_tag_hors.sh
+Restart=always
+RestartSec=5
+
+# Environment if needed (example placeholders)
+# Environment=GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no
+
+[Install]
+WantedBy=default.target
