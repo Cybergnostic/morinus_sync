@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="${HOME}/MorinusChartsRepo"
+REPO_DIR="${HOME}/projects/morinus_sync"
 HORS_DIR="${REPO_DIR}/Hors"
 MORINUS_DIR="${HOME}/projects/MorinusWin"
 MORINUS_HORS="${MORINUS_DIR}/Hors"

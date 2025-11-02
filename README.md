@@ -3,30 +3,30 @@
 Automatic filename tagging and Git sync for Morinus `.hor` files.
 
 ## What it does
-- Watches `~/MorinusChartsRepo/Hors` for `.hor` files
+- Watches `~/projects/morinus_sync/Hors` for `.hor` files
 - Renames new files to `name_<username>.hor`
 - `git pull` → `git add/commit` → `git push`
 - Runs as a user-level systemd service
-- Symlinks Morinus folder: `/home/$USER/projects/MorinusWin/Hors` → `~/MorinusChartsRepo/Hors`
+- Symlinks Morinus folder: `/home/$USER/projects/MorinusWin/Hors` → `~/projects/morinus_sync/Hors`
 
 ## Quick start (first machine)
 ```bash
-git clone <YOUR_REPO_URL> ~/MorinusChartsRepo
-bash ~/MorinusChartsRepo/scripts/install.sh
+git clone <YOUR_REPO_URL> ~/projects/morinus_sync
+bash ~/projects/morinus_sync/scripts/install.sh
 ```
 
 ## Add another machine
 
 ```bash
-git clone <YOUR_REPO_URL> ~/MorinusChartsRepo
-bash ~/MorinusChartsRepo/scripts/install.sh
+git clone <YOUR_REPO_URL> ~/projects/morinus_sync
+bash ~/projects/morinus_sync/scripts/install.sh
 ```
 
 ## Verification Steps (2-3 mins)
 
 ```bash
 # 1. Set repo remote (if not set yet) and pull LFS
-cd ~/MorinusChartsRepo
+cd ~/projects/morinus_sync
 git remote -v            # should show your private GitHub URL
 git lfs install
 

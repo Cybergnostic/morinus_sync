@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-DIR="$HOME/MorinusChartsRepo/Hors"
+DIR="$HOME/projects/morinus_sync/Hors"
 USER_TAG="$(whoami)"
 shopt -s nullglob
 for f in "$DIR"/*.hor; do
@@ -11,7 +11,7 @@ for f in "$DIR"/*.hor; do
   mv "$f" "$DIR/$new"
   echo "Tagged: $base -> $new"
 done
-cd "$HOME/MorinusChartsRepo"
+cd "$HOME/projects/morinus_sync"
 git pull --rebase --autostash || true
 git add Hors/*.hor || true
 git commit -m "Initial bulk tag ($USER_TAG)" || true

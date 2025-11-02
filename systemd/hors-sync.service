@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=%h/MorinusChartsRepo/scripts/auto_tag_hors.sh
+ExecStart=%h/projects/morinus_sync/scripts/auto_tag_hors.sh
 Restart=always
 RestartSec=5
 
