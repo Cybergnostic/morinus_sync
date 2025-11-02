@@ -16,25 +16,21 @@ cd "$REPO_DIR"
 git pull --rebase --autostash || true
 
 echo "[*] Watching: $WATCH_DIR"
-inotifywait -m -e close_write,create,move --format "%f" "$WATCH_DIR" | \
+inotifywait -m -e close_write,create,moved_to --format "%f" "$WATCH_DIR" | \
 while read -r FNAME; do
-  # Only .hor files
-  [[ "$FNAME" == *.hor ]] || continue
+  # Only .hor/.HOR files
+  shopt -s nocasematch
+  [[ "$FNAME" =~ \.hor$ ]] || { shopt -u nocasematch; continue; }
+  shopt -u nocasematch
 
-  # If not tagged for this user, rename to add suffix "_<user>.hor"
-  if [[ "$FNAME" != *_${USER_TAG}.hor ]]; then
-    OLD_PATH="${WATCH_DIR}/${FNAME}"
-    BASE="${FNAME%.hor}"
-    NEW_NAME="${BASE}_${USER_TAG}.hor"
-    NEW_PATH="${WATCH_DIR}/${NEW_NAME}"
-
-    # If target exists (rare), add timestamp
-    if [[ -e "$NEW_PATH" ]]; then
-      NEW_NAME="${BASE}_${USER_TAG}_$(date +%Y%m%d%H%M%S).hor"
-      NEW_PATH="${WATCH_DIR}/${NEW_NAME}"
-    fi
-
-    mv "$OLD_PATH" "$NEW_PATH"
+  EXT="${FNAME##*.}"           # keeps original case of extension
+  BASE="${FNAME%.*}"           # filename without extension
+  # only rename if not already tagged for this user
+  if [[ ! "$BASE" =~ _${USER_TAG}$ ]]; then
+    NEW_NAME="${BASE}_${USER_TAG}.${EXT}"
+    # avoid collisions
+    [[ -e "${WATCH_DIR}/${NEW_NAME}" ]] && NEW_NAME="${BASE}_${USER_TAG}_$(date +%Y%m%d%H%M%S).${EXT}"
+    mv "${WATCH_DIR}/${FNAME}" "${WATCH_DIR}/${NEW_NAME}"
     echo "[+] Renamed ${FNAME} -> ${NEW_NAME}"
   fi
 
